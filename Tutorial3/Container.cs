@@ -41,4 +41,16 @@ public abstract class Container
     {
         if (weight > MaxPayload) throw new Exception();
     }
+
+    public virtual void PrintInfo()
+    {
+        Console.WriteLine($@"Container: {SerialNumber}
+Height: {Height}cm
+Depth: {Depth}cm
+CargoMass: {CargoMass}kg
+TareWeight: {TareWeight}kg
+CargoWeight: {CargoWeight}kg
+MaxPayload: {MaxPayload}kg");
+        
+    }
 }

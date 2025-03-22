@@ -7,6 +7,22 @@ public class ContainerShip
     public double MaxNum { get; set; }
     public double MaxWeight { get; set; }
 
+    public ContainerShip(List<Container> containers, double maxSpeed, double maxNum, double maxWeight)
+    {
+        Containers = containers;
+        MaxSpeed = maxSpeed;
+        MaxNum = maxNum;
+        MaxWeight = maxWeight;
+    }
+
+    public ContainerShip(double maxSpeed, double maxNum, double maxWeight)
+    {
+        MaxSpeed = maxSpeed;
+        MaxNum = maxNum;
+        MaxWeight = maxWeight;
+        Containers = new List<Container>();
+    }
+
     public void LoadSingleContainer(Container c)
     {
         if (MaxNum > Containers.Count)
@@ -17,7 +33,7 @@ public class ContainerShip
                 totalWeight += Containers[i].CargoMass;
             }
 
-            if (totalWeight + c.CargoMass <= MaxWeight)
+            if (totalWeight + c.CargoMass <= MaxWeight * 1000)
             {
                 Containers.Add(c);
                 Console.WriteLine("Container " + c.SerialNumber + " added successfully");
@@ -48,7 +64,7 @@ public class ContainerShip
                 totalWeight += cList[i].CargoMass;
             }
 
-            if (MaxWeight >= totalWeight + totalCListWeight)
+            if (MaxWeight * 1000 >= totalWeight + totalCListWeight)
             {
                 for (int i = 0; i < cList.Count; i++)
                 {
@@ -95,7 +111,7 @@ public class ContainerShip
 
         if (index != -1)
         {
-            if (totalWeight + c.CargoMass - Containers[index].CargoMass <= MaxWeight)
+            if (totalWeight + c.CargoMass - Containers[index].CargoMass <= MaxWeight * 1000)
             {
                 Containers[index] = c;
                 Console.WriteLine("Containers replaced successfully");
@@ -109,5 +125,20 @@ public class ContainerShip
         {
             Console.WriteLine("Container " + sNum + " not found");
         }
+    }
+
+    public void PrintInfo()
+    {
+        Console.WriteLine($@"Container Ship Information:
+maxSpeed: {MaxSpeed} knots
+maxNum: {MaxNum}
+maxWeight: {MaxWeight}t");
+        Console.WriteLine("----------");
+        foreach (Container c in Containers)
+        {
+            c.PrintInfo();
+            Console.WriteLine("----------");
+        }
+        
     }
 }

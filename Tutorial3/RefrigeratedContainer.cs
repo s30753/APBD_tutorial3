@@ -34,4 +34,11 @@ public class RefrigeratedContainer : Container
             CargoMass += weight;
         }
     }
+    
+    public override void PrintInfo()
+    {
+        base.PrintInfo();
+        Console.WriteLine($"Product Type: {ProductType.Name}");
+        Console.WriteLine($"Temperature: {Temperature}");
+    }
 }

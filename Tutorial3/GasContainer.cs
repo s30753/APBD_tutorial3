@@ -41,4 +41,12 @@ public class GasContainer : Container, IHazardNotifier
     {
         // to be implemented
     }
+    
+    public override void PrintInfo()
+    {
+        base.PrintInfo();
+        Console.WriteLine($"Pressure: {Pressure}");
+        if (StoresHazardousCargo) Console.WriteLine("Stores hazardous cargo:");
+        else Console.WriteLine("Doesn't store hazardous cargo");
+    }
 }

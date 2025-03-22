@@ -48,5 +48,11 @@ public class LiquidContainer : Container, IHazardNotifier
     {
         // to implement
     }
-    
+
+    public override void PrintInfo()
+    {
+        base.PrintInfo();
+        if (StoresHazardousCargo) Console.WriteLine("Stores hazardous cargo:");
+        else Console.WriteLine("Doesn't store hazardous cargo");
+    }
 }
