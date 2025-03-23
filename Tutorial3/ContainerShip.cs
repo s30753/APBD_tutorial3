@@ -23,15 +23,20 @@ public class ContainerShip
         Containers = new List<Container>();
     }
 
+    public double TotalContainersWeight()
+    {
+        double totalWeight = 0;
+        for (int i = 0; i < Containers.Count; i++)
+        {
+            totalWeight += Containers[i].CargoMass;
+        }
+        return totalWeight;
+    }
     public void LoadSingleContainer(Container c)
     {
         if (MaxNum > Containers.Count)
         {
-            double totalWeight = 0;
-            for (int i = 0; i < Containers.Count; i++)
-            {
-                totalWeight += Containers[i].CargoMass;
-            }
+            double totalWeight = TotalContainersWeight();
 
             if (totalWeight + c.CargoMass <= MaxWeight * 1000)
             {
@@ -52,11 +57,7 @@ public class ContainerShip
     {
         if (MaxNum >= Containers.Count + cList.Count)
         {
-            double totalWeight = 0;
-            for (int i = 0; i < Containers.Count; i++)
-            {
-                totalWeight += Containers[i].CargoMass;
-            }
+            double totalWeight = TotalContainersWeight();
 
             double totalCListWeight = 0;
             for (int i = 0; i < cList.Count; i++)

@@ -2,7 +2,7 @@
 
 public abstract class Container
 {
-    private static int counter = 0;
+    private static int _counter = 1;
     public string SerialNumber { get; set; }
     public double Height { get; set; }
     public double Depth { get; set; }
@@ -13,38 +13,38 @@ public abstract class Container
 
     protected Container(double height, double depth, double cargoMass, double tareWeight, double cargoWeight, double maxPayload)
     {
-        SerialNumber = "KON-A-" + counter.ToString();
+        SerialNumber = "KON-A-" + _counter.ToString();
         Height = height;
         Depth = depth;
         CargoMass = cargoMass;
         TareWeight = tareWeight;
         CargoWeight = cargoWeight;
         MaxPayload = maxPayload;
-        counter++;
+        _counter++;
     }
 
     protected Container(double height, double depth, double tareWeight, double maxPayload)
     {
-        SerialNumber = "KON-A-" + counter.ToString();
+        SerialNumber = "KON-A-" + _counter.ToString();
         Height = height;
         Depth = depth;
         CargoMass = tareWeight;
         TareWeight = tareWeight;
         CargoWeight = 0;
         MaxPayload = maxPayload;
-        counter++;
+        _counter++;
     }
 
     public abstract void EmptyCargo();
 
     public virtual void LoadContainer(Cargo cargo, double weight)
     {
-        if (weight > MaxPayload) throw new Exception();
+        if (CargoWeight + weight > MaxPayload) throw new OverfillException();
     }
 
     public virtual void PrintInfo()
     {
-        Console.WriteLine($@"Container: {SerialNumber}
+        Console.WriteLine($@"Container {SerialNumber}
 Height: {Height}cm
 Depth: {Depth}cm
 CargoMass: {CargoMass}kg
@@ -53,4 +53,10 @@ CargoWeight: {CargoWeight}kg
 MaxPayload: {MaxPayload}kg");
         
     }
+}
+
+class OverfillException : Exception
+{
+    public OverfillException(): base("This operation would result in overfilling") { }
+   public OverfillException(string message) : base(message) { }
 }

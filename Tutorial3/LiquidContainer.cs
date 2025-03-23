@@ -7,13 +7,13 @@ public class LiquidContainer : Container, IHazardNotifier
     public LiquidContainer(double height, double depth, double cargoMass, double tareWeight, double cargoWeight, double maxPayload) : base(height, depth, cargoMass, tareWeight, cargoWeight, maxPayload)
     {
         StoresHazardousCargo = false;
-        SerialNumber = base.SerialNumber.Replace('A', 'L');
+        SerialNumber = SerialNumber.Replace('A', 'L');
     }
 
     public LiquidContainer(double height, double depth, double tareWeight, double maxPayload) : base(height, depth, tareWeight, maxPayload)
     {
         StoresHazardousCargo = false;
-        SerialNumber = base.SerialNumber.Replace('A', 'L');
+        SerialNumber = SerialNumber.Replace('A', 'L');
     }
 
     public override void EmptyCargo()
@@ -21,10 +21,12 @@ public class LiquidContainer : Container, IHazardNotifier
         CargoWeight = 0;
         CargoMass = TareWeight;
         StoresHazardousCargo = false;
+        Console.WriteLine("Cargo unloaded successfully");
     }
     
     public override void LoadContainer(Cargo cargo, double weight)
     {
+        base.LoadContainer(cargo, weight);
         double currentCapacity = StoresHazardousCargo || cargo.IsHazardous ? 0.5 * MaxPayload : 0.9 * MaxPayload;
         currentCapacity -= CargoWeight;
         if (weight > currentCapacity)
@@ -36,23 +38,24 @@ public class LiquidContainer : Container, IHazardNotifier
             if (cargo.IsHazardous)
             {
                 StoresHazardousCargo = true;
-                notify();
+                Notify();
             }
 
             CargoWeight += weight;
             CargoMass += weight;
+            Console.WriteLine("Cargo successfully loaded");
         }
     }
 
-    public void notify()
+    public void Notify()
     {
-        // to implement
+        Console.WriteLine($"Hazardous situation in container {SerialNumber}");
     }
 
     public override void PrintInfo()
     {
         base.PrintInfo();
-        if (StoresHazardousCargo) Console.WriteLine("Stores hazardous cargo:");
+        if (StoresHazardousCargo) Console.WriteLine("Stores hazardous cargo");
         else Console.WriteLine("Doesn't store hazardous cargo");
     }
 }
