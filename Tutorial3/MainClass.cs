@@ -26,6 +26,29 @@ public class MainClass
         l1.LoadContainer(cargo1, 50);
         l1.LoadContainer(cargo2, 50);
         l1.PrintInfo();
+        Console.WriteLine();
+        g1.PrintInfo();
+        Console.WriteLine();
+        g1.LoadContainer(cargo3, 50);
+        g1.LoadContainer(cargo4, 20);
+        g1.PrintInfo();
+        Console.WriteLine();
+        g1.EmptyCargo();
+        g1.PrintInfo();
+        Console.WriteLine("------------");
+        Console.WriteLine();
+        List<Container> containers = new List<Container>();
+        containers.Add(l1);
+        containers.Add(g1);
+        c1.LoadMultipleContainers(containers);
+        TransferContainer(c1, c2, "KON-L-1");
+        c2.LoadSingleContainer(r1);
+        c2.ReplaceContainer("KON-C-3", r2);
+        Console.WriteLine();
+        Console.WriteLine("------------");
+        c2.PrintInfo();
+        Console.WriteLine();
+        c2.RemoveContainer("KON-C-4");
     }
 
     public static void TransferContainer(ContainerShip c1, ContainerShip c2, string sNum)
